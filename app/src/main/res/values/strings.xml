@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Notebook</string>
+    <string name="notes">My Notes</string>
+    <string name="search">Search your notes</string>
+
+    <!--  description  -->
+    <string name="imageview">ImageView</string>
+    <string name="floatingactionbutton">FloatingActionButton</string>
 </resources>
