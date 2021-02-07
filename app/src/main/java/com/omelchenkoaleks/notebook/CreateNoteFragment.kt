@@ -7,12 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.omelchenkoaleks.notebook.database.NotesDatabase
+import com.omelchenkoaleks.notebook.entities.Notes
 import kotlinx.android.synthetic.main.fragment_create_note.*
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class CreateNoteFragment : Fragment() {
+class CreateNoteFragment : BaseFragment() {
+
+    var currentDate: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +47,7 @@ class CreateNoteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-        val currentDate = sdf.format(Date())
+        currentDate = sdf.format(Date())
         tv_datetime.text = currentDate
 
         image_done.setOnClickListener {
@@ -67,6 +72,22 @@ class CreateNoteFragment : Fragment() {
         if (et_note_description.text.isNullOrEmpty()) {
             Toast.makeText(context, "Note Description is Required", Toast.LENGTH_SHORT).show()
         }
+
+
+        launch {
+            val notes = Notes()
+            notes.title = et_note_title.text.toString()
+            notes.subtitle = et_note_subtitle.text.toString()
+            notes.textnote = et_note_description.text.toString()
+            notes.datetime = currentDate
+            context?.let {
+                NotesDatabase.getDatabase(it).noteDao().insertNotes(notes)
+                et_note_title.setText("")
+                et_note_subtitle.setText("")
+                et_note_description.setText("")
+            }
+        }
+
 
     }
 
