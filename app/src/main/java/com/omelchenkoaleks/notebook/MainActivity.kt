@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         replaceFragment(HomeFragment.newInstance(), true)
     }
 
-    private fun replaceFragment(fragment: Fragment, isTransition: Boolean) {
+    fun replaceFragment(fragment: Fragment, isTransition: Boolean) {
         val fragmentTransition = supportFragmentManager.beginTransaction()
 
         if (isTransition) {
