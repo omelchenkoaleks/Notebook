@@ -28,7 +28,7 @@
         android:layout_marginEnd="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_10sdp"
         android:contentDescription="@string/imageview"
-        android:src="@drawable/ic_tick"
+        android:src="@drawable/ic_tick_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/white" />
@@ -83,6 +83,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_datetime">
 
         <View
+            android:id="@+id/color_view"
             android:layout_width="@dimen/_5sdp"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/_5sdp"
@@ -125,5 +126,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/li_subtitle" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" >
+
+        <ImageView
+            android:id="@+id/image_more"
+            android:src="@drawable/ic_more"
+            android:layout_gravity="center"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp" />
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

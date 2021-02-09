@@ -11,4 +11,14 @@
     <color name="yellow_600">#FFd633</color>
     <color name="blue_500">#4e33ff</color>
     <color name="blue_700">#1427f0</color>
+
+    // color for notes
+    <color name="color_default_note">#606570</color>
+    <color name="color_blue_note">#4e33ff</color>
+    <color name="color_yellow_note">#ffd633</color>
+    <color name="color_white_note">#ffffff</color>
+    <color name="color_purple_note">#ae3b76</color>
+    <color name="color_orange_note">#ff7746</color>
+    <color name="color_black_note">#202734</color>
+    <color name="color_green_note">#52C32D</color>
 </resources>

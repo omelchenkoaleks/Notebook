@@ -1,5 +1,7 @@
 package com.omelchenkoaleks.notebook.adapters
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,10 +20,17 @@ class NotesAdapter(private val listNotes: List<Notes>) :
         )
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
         holder.itemView.tv_item_title.text = listNotes[position].title
         holder.itemView.tv_item_description.text = listNotes[position].textnote
         holder.itemView.tv_item_datetime.text = listNotes[position].datetime
+
+        if (listNotes[position].color != null) {
+            holder.itemView.card_view.setCardBackgroundColor(Color.parseColor(listNotes[position].color))
+        } else {
+            holder.itemView.card_view.setCardBackgroundColor(R.color.light_black)
+        }
     }
 
     override fun getItemCount(): Int {
