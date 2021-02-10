@@ -1,6 +1,7 @@
 package com.omelchenkoaleks.notebook.adapters
 
 import android.annotation.SuppressLint
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +31,13 @@ class NotesAdapter(private val listNotes: List<Notes>) :
             holder.itemView.card_view.setCardBackgroundColor(Color.parseColor(listNotes[position].color))
         } else {
             holder.itemView.card_view.setCardBackgroundColor(R.color.light_black)
+        }
+
+        if (listNotes[position].imagepath != null) {
+            holder.itemView.riv_image_note.setImageBitmap(BitmapFactory.decodeFile(listNotes[position].imagepath))
+            holder.itemView.riv_image_note.visibility = View.VISIBLE
+        } else {
+            holder.itemView.riv_image_note.visibility = View.GONE
         }
     }
 

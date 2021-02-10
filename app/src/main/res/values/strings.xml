@@ -1,13 +1,17 @@
 <resources>
+
     <string name="app_name">Notebook</string>
     <string name="notes">My Notes</string>
     <string name="search">Search your notes</string>
     <string name="notes_title">Notes Title</string>
     <string name="notes_subtitle">Notes Subtitle</string>
     <string name="notes_description">Enter Note Here</string>
+    <string name="storage_permission_text">This app needs access to your storage.</string>
 
     <!--  description  -->
     <string name="imageview">ImageView</string>
     <string name="floatingactionbutton">FloatingActionButton</string>
+    <string name="text_add_image">Add Image</string>
+    <string name="text_pick_color">Pick Color</string>
 
 </resources>

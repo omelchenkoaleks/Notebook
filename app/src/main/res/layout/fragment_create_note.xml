@@ -109,6 +109,17 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/image_note"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_300sdp"
+        android:visibility="gone"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        app:layout_constraintBottom_toTopOf="@+id/et_note_description"
+        app:layout_constraintTop_toBottomOf="@+id/li_subtitle" />
+
     <EditText
         android:id="@+id/et_note_description"
         android:layout_width="match_parent"
@@ -124,21 +135,21 @@
         android:textSize="@dimen/_12ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/li_subtitle" />
+        app:layout_constraintTop_toBottomOf="@+id/image_note" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
             android:id="@+id/image_more"
-            android:src="@drawable/ic_more"
-            android:layout_gravity="center"
             android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp" />
+            android:layout_height="@dimen/_24sdp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_minimize" />
 
     </FrameLayout>
 
