@@ -39,6 +39,14 @@ class NotesAdapter(private val listNotes: List<Notes>) :
         } else {
             holder.itemView.riv_image_note.visibility = View.GONE
         }
+
+        if (listNotes[position].weblink != null) {
+            holder.itemView.tv_item_web_link.text = listNotes[position].weblink
+            holder.itemView.tv_item_web_link.visibility = View.VISIBLE
+        } else {
+            holder.itemView.tv_item_web_link.visibility = View.GONE
+        }
+
     }
 
     override fun getItemCount(): Int {

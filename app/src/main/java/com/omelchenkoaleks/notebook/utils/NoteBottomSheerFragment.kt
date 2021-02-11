@@ -63,9 +63,7 @@ class NoteBottomSheerFragment : BottomSheetDialogFragment() {
                     }
                 }
 
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                    TODO("Not yet implemented")
-                }
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {}
 
             })
         }
@@ -209,8 +207,14 @@ class NoteBottomSheerFragment : BottomSheetDialogFragment() {
             val intent = Intent("bottom_sheet_action")
             intent.putExtra("action", "Image")
             LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent)
-
         }
+
+        li_bottom_sheet_web_url.setOnClickListener {
+            val intent = Intent("bottom_sheet_action")
+            intent.putExtra("action", "WebUrl")
+            LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent)
+        }
+
 
     }
 }
