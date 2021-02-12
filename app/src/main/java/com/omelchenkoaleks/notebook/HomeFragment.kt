@@ -13,6 +13,8 @@ import kotlinx.coroutines.launch
 
 class HomeFragment : BaseFragment() {
 
+    var notesAdapter: NotesAdapter = NotesAdapter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -23,17 +25,16 @@ class HomeFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     companion object {
         fun newInstance() =
             HomeFragment()
-//                .apply {
-//                arguments = Bundle().apply {
-//                }
-//            }
+                .apply {
+                arguments = Bundle().apply {
+                }
+            }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,16 +44,33 @@ class HomeFragment : BaseFragment() {
         recycler_view.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
+        notesAdapter.setOnClickListener(onClicked)
+
         launch {
             context?.let {
                 val notes = NotesDatabase.getDatabase(it).noteDao().getAllNotes()
-                recycler_view.adapter = NotesAdapter(notes)
+                notesAdapter.setData(notes)
+                recycler_view.adapter = notesAdapter
             }
         }
 
         fab_create_note.setOnClickListener {
             replaceFragment(CreateNoteFragment.newInstance(), true)
         }
+    }
+
+    private val onClicked = object : NotesAdapter.OnItemClickListener {
+        override fun onClicked(noteId: Int) {
+
+            val fragment: Fragment
+            val bundle = Bundle()
+            bundle.putInt("noteId", noteId)
+            fragment = CreateNoteFragment.newInstance()
+            fragment.arguments = bundle
+
+            replaceFragment(fragment, false)
+        }
+
     }
 
     private fun replaceFragment(fragment: Fragment, isTransition: Boolean) {

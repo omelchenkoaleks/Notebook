@@ -17,7 +17,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.omelchenkoaleks.notebook.database.NotesDatabase
 import com.omelchenkoaleks.notebook.entities.Notes
@@ -27,7 +26,6 @@ import kotlinx.android.synthetic.main.item_rv_notes.*
 import kotlinx.coroutines.launch
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -41,11 +39,12 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.PermissionCallbacks,
     var selectedColor = "#171C26"
     var selectedImagePath = ""
     private var webLink = ""
+    private var noteId = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-        }
+
+        noteId = requireArguments().getInt("noteId", -1)
     }
 
     override fun onCreateView(
@@ -59,15 +58,41 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.PermissionCallbacks,
     companion object {
         fun newInstance() =
             CreateNoteFragment()
-//                .apply {
-//                arguments = Bundle().apply {
-//                }
-//            }
+                .apply {
+                arguments = Bundle().apply {
+                }
+            }
     }
 
     @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (noteId != -1) {
+            launch {
+                context?.let {
+                    val note = NotesDatabase.getDatabase(it).noteDao().getSpecificNote(noteId)
+                    color_view.setBackgroundColor(Color.parseColor(note.color))
+                    et_note_title.setText(note.title)
+                    et_note_subtitle.setText(note.subtitle)
+                    et_note_description.setText(note.textnote)
+                    if (note.imagepath != "") {
+                        image_note.setImageBitmap(BitmapFactory.decodeFile(note.imagepath))
+                        image_note.visibility = View.VISIBLE
+                    } else {
+                        image_note.visibility = View.GONE
+                    }
+
+                    if (note.weblink != "") {
+                        tv_web_link.text = note.weblink
+                        tv_web_link.visibility = View.VISIBLE
+                    } else {
+                        tv_web_link.visibility = View.GONE
+                    }
+                }
+            }
+
+        }
 
         LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
             broadcastReceiver, IntentFilter("bottom_sheet_action")
@@ -107,7 +132,7 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.PermissionCallbacks,
         }
 
         tv_web_link.setOnClickListener {
-            var intent = Intent(Intent.ACTION_VIEW, Uri.parse(et_web_link.text.toString()))
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(et_web_link.text.toString()))
             startActivity(intent)
         }
     }

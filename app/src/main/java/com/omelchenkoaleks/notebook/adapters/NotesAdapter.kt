@@ -11,9 +11,20 @@ import com.omelchenkoaleks.notebook.R
 import com.omelchenkoaleks.notebook.entities.Notes
 import kotlinx.android.synthetic.main.item_rv_notes.view.*
 
-class NotesAdapter(private val listNotes: List<Notes>) :
+class NotesAdapter :
     RecyclerView.Adapter<NotesAdapter.NotesViewHolder>() {
 
+    var listener: OnItemClickListener? = null
+
+    private var listNotes = ArrayList<Notes>()
+
+    fun setData(notes: List<Notes>) {
+        listNotes = notes as ArrayList<Notes>
+    }
+
+    fun setOnClickListener(_listener: OnItemClickListener) {
+        listener = _listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
         return NotesViewHolder(
@@ -47,6 +58,10 @@ class NotesAdapter(private val listNotes: List<Notes>) :
             holder.itemView.tv_item_web_link.visibility = View.GONE
         }
 
+        holder.itemView.card_view.setOnClickListener {
+            listener?.onClicked(listNotes[position].id!!)
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -54,5 +69,9 @@ class NotesAdapter(private val listNotes: List<Notes>) :
     }
 
     class NotesViewHolder(view: View) : RecyclerView.ViewHolder(view) {}
+
+    interface OnItemClickListener {
+        fun onClicked(noteId: Int)
+    }
 
 }
